@@ -1,6 +1,7 @@
 // DEPENDENCIES
 const cors = require("cors");
 const express = require("express");
+const userController = require("./controllers/userController"); 
 
 // CONFIGURATION
 const app = express();
@@ -11,12 +12,12 @@ app.use(express.json());
 
 // ROUTES
 app.get("/", (req, res) => {
-  res.send("Welcome to the Bookmarks App");
+  res.send("Welcome to CoinMatters App, where ya coin really matters");
 });
 
-// Coinmatters ROUTES
-const coinmattersController = require("./controllers/coinmatterController.js");
-app.use("/coinmatters", coinmattersController);
+app.post("/register", userController.registerUser);
+// app.post("/login", userController.loginUser);
+
 
 // 404 PAGE
 app.get("*", (req, res) => {

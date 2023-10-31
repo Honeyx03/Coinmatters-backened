@@ -1,6 +1,17 @@
 const bcrypt = require("bcrypt");
 const userModel = require("../models/userModel");
 
+const jwt = require("jsonwebtoken");
+
+function generateAuthToken(user) {
+  const payload = { userId: user.id };
+  const secretKey = "Payolah CoinMatters"; 
+  const options = { expiresIn: "1h" }; 
+
+  return jwt.sign(payload, secretKey, options);
+}
+
+
 class UserController {
   async registerUser(req, res) {
     try {
@@ -15,31 +26,29 @@ class UserController {
       res.status(500).json({ error: "Internal server error" });
     }
   }
+
+  async loginUser(req, res) {
+    try {
+      const { email, password } = req.body;
+
+      const user = await userModel.findUserByEmail(email);
+      if (!user) {
+        return res.status(401).json({ error: "Invalid credentials" });
+      }
+
+      const passwordMatch = await bcrypt.compare(password, user.password);
+      if (!passwordMatch) {
+        return res.status(401).json({ error: "Invalid credentials" });
+      }
+
+      const token = generateAuthToken(user);
+
+      res.status(200).json({ token });
+    } catch (error) {
+      console.error("Error logging in:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  }
 }
 
-// class UserLogin {
-//   async loginUser(req, res) {
-//     try {
-//       const { username, password } = req.body;
-
-//       const user = await userModel.findUserByUsername(username);
-//       if (!user) {
-//         return res.status(401).json({ error: "Invalid credentials" });
-//       }
-
-//       const passwordMatch = await bcrypt.compare(password, user.password);
-//       if (!passwordMatch) {
-//         return res.status(401).json({ error: "Invalid credentials" });
-//       }
-
-//       const token = generateAuthToken(user);
-
-//       res.status(200).json({ token });
-//     } catch (error) {
-//       console.error("Error logging in:", error);
-//       res.status(500).json({ error: "Internal server error" });
-//     }
-//   }
-// }
-
-(module.exports = new UserController());
+module.exports = new UserController();

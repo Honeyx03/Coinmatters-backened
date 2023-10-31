@@ -16,7 +16,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/register", userController.registerUser);
-// app.post("/login", userController.loginUser);
+app.post("/login", userController.loginUser);
 
 
 // 404 PAGE

@@ -13,19 +13,18 @@ CREATE TABLE users (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
+DROP TABLE IF EXISTS products_list;
 
--- DROP TABLE IF EXISTS saved_products_list;
-
--- CREATE TABLE saved_products_list (
---  id SERIAL PRIMARY KEY,
---  reviewer TEXT,
---  title TEXT,
---  content TEXT,
---  rating NUMERIC,
---  CHECK (rating >= 0 AND rating <= 5),
---  bookmark_id INTEGER REFERENCES bookmarks (id)
---  ON DELETE CASCADE
--- );
+CREATE TABLE products_list (
+ id SERIAL PRIMARY KEY,
+ title TEXT,
+ source TEXT,
+ price NUMERIC,
+ thumbnail TEXT,
+ product_href ,
+ id INTEGER REFERENCES users (id)
+ ON DELETE CASCADE
+);
 
 -- DROP TABLE IF EXISTS products;
 

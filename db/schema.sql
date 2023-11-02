@@ -22,7 +22,7 @@ CREATE TABLE products_list (
  price NUMERIC,
  thumbnail TEXT,
  product_href ,
- id INTEGER REFERENCES users (id)
+ user_id INTEGER REFERENCES users (id)
  ON DELETE CASCADE
 );
 

@@ -1,24 +1,5 @@
 const db = require("../db/dbConfig.js");
 
-// CREATE TABLE users (
-//   id SERIAL PRIMARY KEY,
-//   username VARCHAR(255) UNIQUE NOT NULL,
-//   email TEXT UNIQUE NOT NULL,
-//   password TEXT NOT NULL,
-//   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-// );
-
-// CREATE TABLE products_list (
-// id SERIAL PRIMARY KEY,
-// title TEXT,
-// source TEXT,
-// price NUMERIC,
-// thumbnail TEXT,
-// product_href TEXT,
-// user_id INTEGER REFERENCES users (id)
-// ON DELETE CASCADE
-// );
-
 const getAllProducts = async (id) => {
     try {
     const allProducts = await db.any(

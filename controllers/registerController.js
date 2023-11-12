@@ -11,7 +11,6 @@ function generateAuthToken(user) {
   return jwt.sign(payload, secretKey, options);
 }
 
-
 class UserController {
   async registerUser(req, res) {
     try {

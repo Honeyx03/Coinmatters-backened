@@ -1,24 +1,27 @@
 \c coinmatters_dev;
 
 INSERT INTO users (username, email, password, created_at) VALUES 
-('testuser', 'testuser@example.com', 'password123', CURRENT_TIMESTAMP),
-('Irwin Jorge', 'irwinj@example.com', 'irwinrocks123!', CURRENT_TIMESTAMP),
-('Lakisha Johnson', 'LakishaJ@example.com', 'LakishaRocks123!', CURRENT_TIMESTAMP),
-('Noni Porter', 'NoniP@example.com', 'NoniRocks123!', CURRENT_TIMESTAMP),
-('Dennys Antunish', 'DennysA@example.com', 'DennysRocks123!', CURRENT_TIMESTAMP),
-('John Goodman', 'JohnG@example.com', 'JohnRocks123!', CURRENT_TIMESTAMP),
-('Ahmad Hamoudeh', 'AhmadH@example.com', 'AhmadRocks123!', CURRENT_TIMESTAMP);
+('testuser', 'testuser@example.com', 'password123', CURRENT_TIMESTAMP), 1
+('Irwin Jorge', 'irwinj@example.com', 'irwinrocks123!', CURRENT_TIMESTAMP), 2
+('Lakisha Johnson', 'LakishaJ@example.com', 'LakishaRocks123!', CURRENT_TIMESTAMP), 3
+('Noni Porter', 'NoniP@example.com', 'NoniRocks123!', CURRENT_TIMESTAMP), 4
+('Dennys Antunish', 'DennysA@example.com', 'DennysRocks123!', CURRENT_TIMESTAMP), 5
+('John Goodman', 'JohnG@example.com', 'JohnRocks123!', CURRENT_TIMESTAMP), 6
+('Ahmad Hamoudeh', 'AhmadH@example.com', 'AhmadRocks123!', CURRENT_TIMESTAMP); 7
 
 INSERT INTO list (list_name, user_id) VALUES 
-('groceries', 2),
-('dairy', 4),
-('fruit', 6);
+('groceries', irwin),
+('dairy', irwin),
+('dairy', Lakisha),
+('fruit', Dennys);
+
+INSERT INTO products
 
 INSERT INTO products (title, source, list_id) VALUES
-('Friendly Farms Whole Milk - 0.5 Gal', 'Instacart', 2),
+('Friendly Farms Whole Milk - 0.5 Gal', 'Instacart', 1),
 ('Publix Milk, Whole', 'Publix Delivery', 2),
 ('Horizon Organic Whole Shelf-Stable Milk Boxes - 8 fl oz', 'Walmart',2),
-('Great Value Large White Eggs', 'Walmart'),
+('Great Value Large White Eggs', 'Walmart',),
 ('Great Value Grade A Large White Eggs - 12 ct', 'DailyCart'),
 ('Good & Gather Grade A Large Fresh Eggs', 'Target'),
 ('Azure Market Whole Milk Mozzarella Cheese, 6 lb', 'Azure Standard'),

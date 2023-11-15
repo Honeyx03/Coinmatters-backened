@@ -3,7 +3,7 @@ const { checkToken } = require("./verification/checkAuth")
 // DEPENDENCIES
 const cors = require("cors");
 const express = require("express");
-const userController = require("./controllers/userController"); 
+const registerController = require("./controllers/registerController"); 
 
 // CONFIGURATION
 const app = express();
@@ -17,9 +17,14 @@ app.get("/", (req, res) => {
   res.send("Welcome to CoinMatters App, where ya coin really matters");
 });
 
-app.post("/register", userController.registerUser);
-app.post("/login", userController.loginUser);
-app.get('/users', checkToken, userController.userData)
+
+app.post("/register", registerController.registerUser);
+app.post("/login", registerController.loginUser);
+app.get('/users', checkToken, registerController.userData)
+
+// Users ROUTES
+const usersController = require("./controllers/usersController.js");
+app.use("/users", usersController);
 
 // 404 PAGE
 app.get("*", (req, res) => {

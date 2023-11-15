@@ -13,7 +13,7 @@ const {
 // INDEX
 products.get("/", async (req, res) => {
     const { userId } = req.params;
-
+    
     try {
       const allProducts = await getAllProducts(userId);
       res.json(allProducts);

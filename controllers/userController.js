@@ -1,11 +1,10 @@
 const bcrypt = require("bcrypt");
 const userModel = require("../models/userModel");
-
 const jwt = require("jsonwebtoken");
 
 function generateAuthToken(user) {
-  const payload = { userId: user.id };
-  const secretKey = "Payolah CoinMatters"; 
+  const payload = user;
+  const secretKey = process.env.TOKEN_SECRET; 
   const options = { expiresIn: "1h" }; 
 
   return jwt.sign(payload, secretKey, options);
@@ -42,12 +41,29 @@ class UserController {
       }
 
       const token = generateAuthToken(user);
-
+      
       res.status(200).json({ token });
     } catch (error) {
       console.error("Error logging in:", error);
       res.status(500).json({ error: "Internal server error" });
     }
+  }
+  async userData(req, res){
+    const secretKey = process.env.TOKEN_SECRET; 
+    jwt.verify(req.token, secretKey, (err, authorizedData) => {
+      if(err){
+          //If error send Forbidden (403)
+          console.log('ERROR: Could not connect to the protected route');
+          res.sendStatus(403);
+      } else {
+          //If token is successfully verified, we can send the autorized data 
+          res.json({
+              message: 'Successful log in',
+              authorizedData
+          });
+          console.log('SUCCESS: Connected to protected route');
+      }
+  })
   }
 }
 

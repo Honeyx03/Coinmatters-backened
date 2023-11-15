@@ -1,3 +1,5 @@
+const { checkToken } = require("./verification/checkAuth") 
+
 // DEPENDENCIES
 const cors = require("cors");
 const express = require("express");
@@ -17,7 +19,7 @@ app.get("/", (req, res) => {
 
 app.post("/register", userController.registerUser);
 app.post("/login", userController.loginUser);
-
+app.get('/users', checkToken, userController.userData)
 
 // 404 PAGE
 app.get("*", (req, res) => {

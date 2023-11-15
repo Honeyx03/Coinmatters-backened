@@ -11,6 +11,7 @@ class UserModel {
   async findUserByEmail(email) {
     return db.oneOrNone("SELECT * FROM users WHERE email = $1", email);
   }
+
 }
 
 module.exports = new UserModel();

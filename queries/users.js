@@ -20,19 +20,6 @@ const getUser = async (id) => {
   }
 };
 
-// CREATE
-// const createUser = async (videogame) => {
-//   try {
-//     const newUser = await db.one(
-//       "INSERT INTO users (name, url, genre,is_favorite) VALUES($1, $2, $3, $4) RETURNING *",
-//       [videogame.name, videogame.url, videogame.genre, videogame.is_favorite]
-//     );
-//     return newUser;
-//   } catch (error) {
-//     return error;
-//   }
-// };
-
 // DELETE
 const deleteUser = async (id) => {
   try {

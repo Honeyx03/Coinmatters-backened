@@ -18,7 +18,7 @@ DROP TABLE IF EXISTS lists;
 CREATE TABLE lists (
  list_id SERIAL PRIMARY KEY,
  list_name TEXT,
- user_id INTEGER REFERENCES users(id)
+ user_id INTEGER REFERENCES users(user_id)
  ON DELETE CASCADE
 );
 
@@ -26,9 +26,9 @@ DROP TABLE IF EXISTS products;
 
 CREATE TABLE products (
  product_id SERIAL PRIMARY KEY,
- title TEXT,
+ product_name TEXT,
  source TEXT,
- list_id INTEGER REFERENCES list(id)
+ list_id INTEGER REFERENCES lists(list_id)
  ON DELETE CASCADE
 );
 

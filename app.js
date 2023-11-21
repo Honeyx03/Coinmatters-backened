@@ -17,7 +17,6 @@ app.get("/", (req, res) => {
   res.send("Welcome to CoinMatters App, where ya coin really matters");
 });
 
-
 app.post("/register", registerController.registerUser);
 app.post("/login", registerController.loginUser);
 app.get('/users', checkToken, registerController.userData)

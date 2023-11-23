@@ -14,14 +14,14 @@ lists.use("/:listsId/products", productsController);
 
 // INDEX
 lists.get("/", async (req, res) => {
-    const { userId } = req.params;
-    try {
-      const allLists = await getAllLists(userId);
-      res.json(allLists);
-    } catch (err) {
-      res.json({ error: "No lists found" });
-    }
-  });
+  const { userId } = req.params;
+  try {
+    const allLists = await getAllLists(userId);
+    res.json(allLists);
+  } catch (err) {
+    res.json({ error: "No lists found" });
+  }
+});
 
 // SHOW
 lists.get("/:id", async (req, res) => {
@@ -36,13 +36,13 @@ lists.get("/:id", async (req, res) => {
 
 // CREATE
 lists.post("/", async (req, res) => {
-    try {
-      const list = await newList(req.body);
-      res.status(200).json(list);
-    } catch (error) {
-      res.status(400).json({ error: error });
-    }
-  });
+  try {
+    const list = await newList(req.body);
+    res.status(200).json(list);
+  } catch (error) {
+    res.status(400).json({ error: error });
+  }
+});
 
 // UPDATE
 lists.put("/:id", async (req, res) => {

@@ -26,6 +26,7 @@ class UserController {
   }
 
   async loginUser(req, res) {
+    
     try {
       const { email, password } = req.body;
 
@@ -40,13 +41,15 @@ class UserController {
       }
 
       const token = generateAuthToken(user);
-      
-      res.status(200).json({ token });
+      res.cookie("dataToken", token, { maxAge: 900000, httpOnly: true });
+      console.log("Login Successful")
+      res.status(200).json("Cookie Set");
     } catch (error) {
       console.error("Error logging in:", error);
       res.status(500).json({ error: "Internal server error" });
     }
   }
+
   async userData(req, res){
     const secretKey = process.env.TOKEN_SECRET; 
     jwt.verify(req.token, secretKey, (err, authorizedData) => {
@@ -62,8 +65,22 @@ class UserController {
           });
           console.log('SUCCESS: Connected to protected route');
       }
-  })
+    })
   }
+
+  async logOut(req,res){
+    // Clear the 'dataToken' cookie on the client-side
+    res.clearCookie('dataToken');
+  
+    // Send a response indicating successful logout
+    return res.status(200).json({ message: 'Logout successful' });
+
+  }
+
+  async checkLogin(req, res){
+    res.status(200).json({ message: 'Cookie Works' });
+  }
+  
 }
 
 module.exports = new UserController();

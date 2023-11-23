@@ -1,16 +1,21 @@
-const { checkToken } = require("./verification/checkAuth") 
+const { checkToken, checkLoginMiddleware, logOutVerify } = require("./verification/checkAuth") 
 
 // DEPENDENCIES
 const cors = require("cors");
 const express = require("express");
 const registerController = require("./controllers/registerController"); 
+const CookieParser = require("cookie-parser");
 
 // CONFIGURATION
 const app = express();
 
 // MIDDLEWARE
-app.use(cors());
 app.use(express.json());
+app.use(CookieParser());
+app.use(cors({
+  origin : "http://localhost:3000",
+  credentials: true,
+}))
 
 // ROUTES
 app.get("/", (req, res) => {
@@ -18,9 +23,11 @@ app.get("/", (req, res) => {
 });
 
 
-app.post("/register", registerController.registerUser);
-app.post("/login", registerController.loginUser);
-app.get('/users', checkToken, registerController.userData)
+app.post('/register', registerController.registerUser);
+app.post('/login', registerController.loginUser);
+app.get('/user', checkToken, registerController.userData)
+app.get('/check-login', checkLoginMiddleware, registerController.checkLogin)
+app.post('/logout', logOutVerify, registerController.logOut)
 
 // Users ROUTES
 const usersController = require("./controllers/usersController.js");

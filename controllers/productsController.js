@@ -61,12 +61,4 @@ products.delete("/:id", async (req, res) => {
   }
 });
 
-// TEST JSON NEW
-// {
-//     "producter":"Lou",
-//      "title": "Fryin Better",
-//      "content": "With the great tips and tricks I found here",
-//      "user_id": "2",
-//      "rating": "4"
-// }
 module.exports = products;

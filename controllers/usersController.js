@@ -8,8 +8,8 @@ const {
   updateUser,
 } = require("../queries/users.js");
 const { validateURL } = require("../validations/checkUsers.js");
-const productsController = require("./productsController.js");
-users.use("/:userId/products", productsController);
+const listsController = require("./listsController.js");
+users.use("/:userId/lists", listsController);
 
 // INDEX
 users.get("/", async (req, res) => {

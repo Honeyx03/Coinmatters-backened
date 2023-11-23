@@ -22,12 +22,12 @@ app.get("/", (req, res) => {
   res.send("Welcome to CoinMatters App, where ya coin really matters");
 });
 
-
 app.post('/register', registerController.registerUser);
 app.post('/login', registerController.loginUser);
 app.get('/user', checkToken, registerController.userData)
 app.get('/check-login', checkLoginMiddleware, registerController.checkLogin)
 app.post('/logout', logOutVerify, registerController.logOut)
+
 
 // Users ROUTES
 const usersController = require("./controllers/usersController.js");

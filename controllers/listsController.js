@@ -8,7 +8,7 @@ const {
   newList,
   deleteList,
   updateList,
-} = require("../queries/lists");
+} = require("../queries/lists.js");
 const productsController = require("./productsController.js");
 lists.use("/:listsId/products", productsController);
 

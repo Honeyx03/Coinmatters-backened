@@ -9,11 +9,13 @@ const CookieParser = require("cookie-parser");
 // CONFIGURATION
 const app = express();
 
+const originURL = process.env.ORIGIN_URL; 
+
 // MIDDLEWARE
 app.use(express.json());
 app.use(CookieParser());
 app.use(cors({
-  origin : "http://localhost:3000",
+  origin : originURL,
   credentials: true,
 }))
 

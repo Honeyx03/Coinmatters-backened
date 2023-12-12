@@ -15,7 +15,7 @@ const originURL = process.env.ORIGIN_URL;
 app.use(express.json());
 app.use(CookieParser());
 app.use(cors({
-  origin : originURL,
+  origin : "http://localhost:3000",
   credentials: true,
 }))
 

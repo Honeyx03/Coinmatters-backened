@@ -13,7 +13,7 @@ const getAllUsers = async () => {
 // ONE User
 const getUser = async (id) => {
   try {
-    const oneUser = await db.one("SELECT * FROM users WHERE id=$1", id);
+    const oneUser = await db.one("SELECT * FROM users WHERE user_id=$1", id);
     return oneUser;
   } catch (error) {
     return error;
@@ -24,7 +24,7 @@ const getUser = async (id) => {
 const deleteUser = async (id) => {
   try {
     const deletedUser = await db.one(
-      "DELETE FROM users WHERE id= $1 RETURNING *",
+      "DELETE FROM users WHERE user_id=$1 RETURNING *",
       id
     );
     return deletedUser;
@@ -37,7 +37,7 @@ const deleteUser = async (id) => {
 const updateUser = async (id, user) => {
   try {
     const updatedUser = await db.one(
-      "UPDATE users SET username=$1, email=$2, password=$3, created_at=$4 where id=$5 RETURNING *",
+      "UPDATE users SET username=$1, email=$2, password=$3, created_at=$4 where user_id=$5 RETURNING *",
       [user.username, user.email, user.password, user.created_at, id]
     );
     return updatedUser;

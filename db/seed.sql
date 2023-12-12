@@ -1,4 +1,4 @@
-\c coinmatters_dev;
+\c coinsmatter_dev;
 
 INSERT INTO users (username, email, password, created_at) VALUES 
 ('testuser', 'testuser@example.com', 'password123', CURRENT_TIMESTAMP),
@@ -9,26 +9,33 @@ INSERT INTO users (username, email, password, created_at) VALUES
 ('John Goodman', 'JohnG@example.com', 'JohnRocks123!', CURRENT_TIMESTAMP),
 ('Ahmad Hamoudeh', 'AhmadH@example.com', 'AhmadRocks123!', CURRENT_TIMESTAMP);
 
-INSERT INTO lists (list_name, user_id) VALUES 
-('groceries', 2),
-('dairy', 4),
-('dairy', 6),
-('fruit', 7);
+INSERT INTO lists (list_name, user_id, list_id) VALUES 
+('groceries', 2, 1),
+('Birthday party', 2, 2),
+('Nonis list', 4, 3),
+('Dennys list', 5, 4),
+('fruit', 5, 5);
 
-INSERT INTO products (title, source, list_id) VALUES
-('Friendly Farms Whole Milk - 0.5 Gal', 'Instacart', 1),
-('Publix Milk, Whole', 'Publix Delivery', 2),
-('Horizon Organic Whole Shelf-Stable Milk Boxes - 8 fl oz', 'Walmart',2),
-('Great Value Large White Eggs', 'Walmart', 3),
-('Great Value Grade A Large White Eggs - 12 ct', 'DailyCart', 3),
-('Good & Gather Grade A Large Fresh Eggs', 'Target', 2),
-('Azure Market Whole Milk Mozzarella Cheese, 6 lb', 'Azure Standard', 3),
-('Sargento Shredded Cheese, Whole Milk, Mozzarella - 8 oz', 'Publix Delivery', 3),
-('Belgioioso Cheese, Fresh Mozzarella, Sliced - 16 oz', 'DoorDash - Target Grocery US', 3),
-('Mango - Each', 'Instacart', 4),
-('Tropical Importers Fresh Kent Mangoes (9 lbs)', 'Amazon.com - Seller', 4);
+INSERT INTO products (product_id, product_name, source, price) VALUES
+(1,'Friendly Farms Whole Milk - 0.5 Gal', 'Instacart', 2),
+(2,'Publix Milk, Whole', 'Publix Delivery', 3),
+(3,'Horizon Organic Whole Shelf-Stable Milk Boxes - 8 fl oz', 'Walmart', 2),
+(4,'Great Value Large White Eggs', 'Walmart', 5),
+(5,'Great Value Grade A Large White Eggs - 12 ct', 'DailyCart', 5),
+(6,'Good & Gather Grade A Large Fresh Eggs', 'Target', 6),
+(7,'Azure Market Whole Milk Mozzarella Cheese, 6 lb', 'Azure Standard', 6),
+(8,'Sargento Shredded Cheese, Whole Milk, Mozzarella - 8 oz', 'Publix Delivery', 3),
+(9,'Belgioioso Cheese, Fresh Mozzarella, Sliced - 16 oz', 'DoorDash - Target Grocery US', 4),
+(10,'Mango - Each', 'Instacart', 2),
+(11,'Tropical Importers Fresh Kent Mangoes (9 lbs)', 'Amazon.com - Seller', 20);
 
-
+INSERT INTO products_list (product_id, list_id, quantity) VALUES
+(1, 1, 2),
+(4, 1, 1),
+(10, 2, 1),
+(3, 3, 1),
+(2, 3, 1),
+(1, 4, 1);
 
 
 

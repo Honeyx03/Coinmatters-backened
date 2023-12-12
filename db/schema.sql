@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS coinmatters_dev;
-CREATE DATABASE coinmatters_dev;
+DROP DATABASE IF EXISTS coinsmatter_dev;
+CREATE DATABASE coinsmatter_dev;
 
-\c coinmatters_dev;
+\c coinsmatter_dev;
 
 DROP TABLE IF EXISTS users;
 
@@ -28,16 +28,40 @@ CREATE TABLE products (
  product_id SERIAL PRIMARY KEY,
  product_name TEXT,
  source TEXT,
- list_id INTEGER REFERENCES lists(list_id)
- ON DELETE CASCADE
+ price INTEGER
 );
 
-DROP TABLE IF EXISTS product_list;
+DROP TABLE IF EXISTS products_list;
 
-CREATE TABLE product_list (
+CREATE TABLE products_list (
   product_id INTEGER,
   list_id INTEGER,
+  quantity INTEGER,
   PRIMARY KEY (product_id, list_id),
   FOREIGN KEY (product_id) REFERENCES products(product_id),
   FOREIGN KEY (list_id) REFERENCES lists(list_id)
+  ON DELETE CASCADE
 );
+
+DROP TABLE IF EXISTS retailers;
+
+CREATE TABLE retailers (
+  retailer_id INTEGER,
+  retailer_name VARCHAR(255) UNIQUE NOT NULL,
+  logo_url TEXT UNIQUE NOT NULL,
+  website TEXT UNIQUE NOT NULL,
+  address TEXT,
+  contact_information TEXT
+);
+
+-- DROP TABLE IF EXISTS prices;
+
+-- CREATE TABLE prices (
+--   price_id INTEGER,
+--   product_id INTEGER,
+--   retailer_id INTEGER,
+--   PRIMARY KEY (price_id, product_id, retailer_id),
+--   FOREIGN KEY (product_id) REFERENCES products(product_id),
+--   FOREIGN KEY (list_id) REFERENCES lists(list_id)
+--   FOREIGN KEY (retailer_id) REFERENCES retailers(retailer_id)
+-- );

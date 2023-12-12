@@ -13,7 +13,7 @@ const getAllLists = async (user_id) => {
 
 const getList = async (id) => {
   try {
-    const oneList = await db.one("SELECT * FROM lists WHERE id=$1", id);
+    const oneList = await db.one("SELECT * FROM lists WHERE list_id = $1", id);
     return oneList;
   } catch (error) {
     return error;
@@ -38,7 +38,7 @@ const newList = async (list) => {
 const deleteList = async (id) => {
   try {
     const deletedList = await db.one(
-      "DELETE FROM lists WHERE id = $1 RETURNING *",
+      "DELETE FROM lists WHERE list_id=$1 RETURNING *",
       id
     );
     return deletedList;
@@ -50,13 +50,9 @@ const deleteList = async (id) => {
 const updateList = async (id, list) => {
   try {
     const updatedList = await db.one(
-      "UPDATE lists SET lister=$1, title=$2, content=$3, rating=$4, bookmark_id=$5 where id=$6 RETURNING *",
+      "UPDATE lists SET list_name=$1, where user_id=$2 RETURNING *",
       [
-        list.lister,
-        list.title,
-        list.content,
-        list.rating,
-        list.bookmark_id,
+        list.list_name,
         id,
       ]
     );

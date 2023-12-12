@@ -10,7 +10,7 @@ const {
   updateList,
 } = require("../queries/lists.js");
 const productsController = require("./productsController.js");
-lists.use("/:listsId/products", productsController);
+lists.use("/:listId/products", productsController);
 
 // INDEX
 lists.get("/", async (req, res) => {

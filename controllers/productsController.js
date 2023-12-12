@@ -12,10 +12,10 @@ const {
 
 // INDEX
 products.get("/", async (req, res) => {
-    const { userId } = req.params;
-    
+    const { listId } = req.params;
+
     try {
-      const allProducts = await getAllProducts(userId);
+      const allProducts = await getAllProducts(listId);
       res.json(allProducts);
     } catch (err) {
       res.json(err);

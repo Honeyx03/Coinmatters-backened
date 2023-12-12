@@ -1,19 +1,33 @@
 const db = require("../db/dbConfig.js");
 
 const getAllProducts = async (id) => {
-    try {
-    const allProducts = await db.any(
-    "SELECT * FROM products_list WHERE user_id=$1",
-    id
-    );
-    return allProducts;
-    } catch (err) {
-    return err;
-    }};
+  try {
+  console.log("running this")
+  console.log(id)
+  const allProducts = await db.any(
+  `
+    SELECT * 
+    FROM products_list
+    JOIN products
+    ON products_list.product_id = products.product_id
+    WHERE products_list.list_id=$1
+  `
+  ,id);
+  return allProducts;
+  } catch (err) {
+  return err;
+  }};
 
 const getProduct = async (id) => {
   try {
-    const oneProduct = await db.one("SELECT * FROM products_list WHERE id=$1", id);
+    const oneProduct = await db.one(
+    `
+    SELECT *
+    FROM products_list
+    JOIN products ON products_list.product_id = products.product_id
+    WHERE products_list.list_id = $2
+    `
+    , id);
     return oneProduct;
   } catch (error) {
     return error;
@@ -23,7 +37,7 @@ const getProduct = async (id) => {
 const newProduct = async (product) => {
   try {
     const newProduct = await db.one(
-      "INSERT INTO products_list (title, source, price, thumbnail, product_href, user_id) VALUES($1, $2, $3, $4, $5, $6) RETURNING *",
+      "INSERT INTO products (title, source, price, thumbnail, product_href, product_id) VALUES($1, $2, $3, $4, $5, $6) RETURNING *",
       [
         product.title,
         product.source,
@@ -77,3 +91,5 @@ module.exports = {
   deleteProduct,
   updateProduct,
 };
+
+

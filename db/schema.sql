@@ -54,14 +54,14 @@ CREATE TABLE retailers (
   contact_information TEXT
 );
 
--- DROP TABLE IF EXISTS prices;
+DROP TABLE IF EXISTS prices;
 
--- CREATE TABLE prices (
---   price_id INTEGER,
---   product_id INTEGER,
---   retailer_id INTEGER,
---   PRIMARY KEY (price_id, product_id, retailer_id),
---   FOREIGN KEY (product_id) REFERENCES products(product_id),
---   FOREIGN KEY (list_id) REFERENCES lists(list_id)
---   FOREIGN KEY (retailer_id) REFERENCES retailers(retailer_id)
--- );
+CREATE TABLE prices (
+  price_id INTEGER,
+  product_id INTEGER,
+  retailer_id INTEGER,
+  PRIMARY KEY (price_id, product_id, retailer_id),
+  FOREIGN KEY (product_id) REFERENCES products(product_id),
+  FOREIGN KEY (list_id) REFERENCES lists(list_id)
+  FOREIGN KEY (retailer_id) REFERENCES retailers(retailer_id)
+);

@@ -15,9 +15,16 @@ const originURL = process.env.ORIGIN_URL;
 app.use(express.json());
 app.use(CookieParser());
 app.use(cors({
-  origin : "http://localhost:3000",
+  origin : originURL,
   credentials: true,
 }))
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', `${originURL}`);
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
 
 // ROUTES
 app.get("/", (req, res) => {

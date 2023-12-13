@@ -19,6 +19,13 @@ app.use(cors({
   credentials: true,
 }))
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', `${originURL}`);
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
+
 // ROUTES
 app.get("/", (req, res) => {
   res.send("Welcome to CoinMatters App, where ya coin really matters");

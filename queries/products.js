@@ -2,8 +2,6 @@ const db = require("../db/dbConfig.js");
 
 const getAllProducts = async (id) => {
   try {
-  console.log("running this")
-  console.log(id)
   const allProducts = await db.any(
   `
     SELECT * 

@@ -8,7 +8,7 @@ const {
   newProduct,
   deleteProduct,
   updateProduct,
-} = require("../queries/products");
+} = require("../queries/products.js");
 
 // INDEX
 products.get("/", async (req, res) => {

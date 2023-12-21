@@ -22,13 +22,24 @@ CREATE TABLE lists (
  ON DELETE CASCADE
 );
 
+DROP TABLE IF EXISTS retailers;
+
+CREATE TABLE retailers (
+  retailer_id SERIAL PRIMARY KEY,
+  retailer_name VARCHAR(255) UNIQUE NOT NULL,
+  zipcodes_array INTEGER[],
+  website TEXT UNIQUE NOT NULL
+);
+
 DROP TABLE IF EXISTS products;
 
 CREATE TABLE products (
  product_id SERIAL PRIMARY KEY,
  product_name TEXT,
- source TEXT,
- price INTEGER
+ size TEXT,
+ price DECIMAL,
+ retailer_id INTEGER REFERENCES retailers(retailer_id),
+ thumbnail TEXT
 );
 
 DROP TABLE IF EXISTS products_list;
@@ -43,25 +54,13 @@ CREATE TABLE products_list (
   ON DELETE CASCADE
 );
 
-DROP TABLE IF EXISTS retailers;
+-- DROP TABLE IF EXISTS prices;
 
-CREATE TABLE retailers (
-  retailer_id INTEGER,
-  retailer_name VARCHAR(255) UNIQUE NOT NULL,
-  logo_url TEXT UNIQUE NOT NULL,
-  website TEXT UNIQUE NOT NULL,
-  address TEXT,
-  contact_information TEXT
-);
-
-DROP TABLE IF EXISTS prices;
-
-CREATE TABLE prices (
-  price_id INTEGER,
-  product_id INTEGER,
-  retailer_id INTEGER,
-  PRIMARY KEY (price_id, product_id, retailer_id),
-  FOREIGN KEY (product_id) REFERENCES products(product_id),
-  FOREIGN KEY (list_id) REFERENCES lists(list_id)
-  FOREIGN KEY (retailer_id) REFERENCES retailers(retailer_id)
-);
+-- CREATE TABLE prices (
+--   price_id INTEGER,
+--   product_id INTEGER,
+--   retailer_id INTEGER,
+--   PRIMARY KEY (price_id, product_id, retailer_id),
+--   FOREIGN KEY (product_id) REFERENCES products(product_id),
+--   FOREIGN KEY (retailer_id) REFERENCES retailers(retailer_id)
+-- );

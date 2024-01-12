@@ -6,6 +6,7 @@ const express = require("express");
 const registerController = require("./controllers/registerController"); 
 const CookieParser = require("cookie-parser");
 
+
 // CONFIGURATION
 const app = express();
 
@@ -41,6 +42,13 @@ app.post('/logout', logOutVerify, registerController.logOut)
 // Users ROUTES
 const usersController = require("./controllers/usersController.js");
 app.use("/users", usersController);
+
+//Lists ROUTES
+const listsRouter = require("./controllers/listsController.js");
+
+//Use the lists router for requests to '/lists'
+app.use("/lists", listsRouter);
+
 
 // 404 PAGE
 app.get("*", (req, res) => {

@@ -1,14 +1,23 @@
 const db = require("../db/dbConfig.js");
 
-const getAllLists = async (user_id) => {
+const getAllLists = async () => {
     try {
     const allLists = await db.any(
-    "SELECT * FROM lists WHERE user_id=$1",
-    user_id
-    );
+    "SELECT * FROM lists");
     return allLists;
     } catch (err) {
     return err;
+    }};
+
+const getUserLists = async (user_id) => {
+    try {
+      const userLists = await db.any(
+      "SELECT * FROM lists WHERE user_id=$1",
+      user_id
+      );
+      return userLists;
+    } catch (err) {
+      return err;
     }};
 
 const getList = async (id) => {
@@ -23,10 +32,12 @@ const getList = async (id) => {
 const newList = async (list) => {
   try {
     const newList = await db.one(
-      "INSERT INTO lists (list_name, user_id) VALUES($1, $2) RETURNING *",
+      "INSERT INTO lists (user_id, list_name, products, note) VALUES($1, $2, $3, $4) RETURNING *",
       [
-        list.list_name,
         list.user_id,
+        list.list_name,
+        list.products,
+        list.note
       ]
     );
     return newList;
@@ -34,6 +45,25 @@ const newList = async (list) => {
     return error;
   }
 };
+
+
+const newUserList = async (list) => {
+  try {
+    const userList = await db.one(
+      "INSERT INTO lists (user_id, list_name, products, note) VALUES($1, $2, $3, $4) RETURNING *",
+      [
+        list.user_id,
+        list.list_name,
+        list.products,
+        list.note
+      ]
+    );
+    return userList;
+  } catch (error) {
+    return error;
+  }
+};
+
 
 const deleteList = async (id) => {
   try {
@@ -50,10 +80,12 @@ const deleteList = async (id) => {
 const updateList = async (id, list) => {
   try {
     const updatedList = await db.one(
-      "UPDATE lists SET list_name=$1, where user_id=$2 RETURNING *",
+      "UPDATE lists SET user_id=$1, list_name=$2, products=$3, note=$4 WHERE id=$6 RETURNING *",
       [
         list.list_name,
-        id,
+        list.products,
+        list.note, 
+        id
       ]
     );
     return updatedList;
@@ -63,8 +95,10 @@ const updateList = async (id, list) => {
 };
 module.exports = {
   getAllLists,
+  getUserLists,
   getList,
   newList,
+  newUserList,
   deleteList,
   updateList,
 };

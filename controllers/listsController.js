@@ -9,8 +9,8 @@ const {
   deleteList,
   updateList,
 } = require("../queries/lists.js");
-const productsController = require("./productsListController.js");
-lists.use("/:listId/products", productsController);
+// const productsController = require("./productsListController.js");
+// lists.use("/:listId/products", productsController);
 
 // INDEX
 lists.get("/", async (req, res) => {

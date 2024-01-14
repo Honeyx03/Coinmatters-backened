@@ -42,6 +42,14 @@ app.post('/logout', logOutVerify, registerController.logOut)
 const usersController = require("./controllers/usersController.js");
 app.use("/users", usersController);
 
+// Products ROUTE
+const productsController = require("./controllers/productsListController.js");
+app.use("/products", productsController);
+
+// Retailer ROUTE
+const retailerController = require("./controllers/retailerController.js");
+app.use("/retailer", retailerController);
+
 // 404 PAGE
 app.get("*", (req, res) => {
   res.status(404).send("Page not found");

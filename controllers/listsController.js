@@ -24,6 +24,22 @@ lists.get("/", async (req, res) => {
     res.json({ error: "No lists found" });
   }
 });
+
+// SHOW a list for a specific user
+lists.get("/user/:user_id", async (req, res) => {
+  const { user_id } = req.params;
+  try {
+    console.log('Fetching user and lists for user_id:', user_id);
+    const user = await getUser(user_id);
+    const userLists = await getUserLists(user_id);
+    console.log('Fetched user and lists:', { user, lists: userLists });
+    res.json({ user, lists: userLists });
+  } catch (err) {
+    console.error('Error fetching user and lists:', err);
+    res.json({ error: "No lists found" });
+  }
+});
+
 //POST all user lists to the /lists table
 lists.post("/:user_id", async (req, res) => {
   const { user_id } = req.params;
@@ -39,18 +55,6 @@ lists.post("/:user_id", async (req, res) => {
     res.status(200).json(createdList);
   } catch (error) {
     res.status(400).json({ error });
-  }
-});
-
-// SHOW a list for a specific user
-lists.get("/user/:user_id", async (req, res) => {
-  const { user_id } = req.params;
-  try {
-    const user = await getUser(user_id);
-    const userLists = await getUserLists(user_id);
-    res.json({ user, lists: userLists });
-  } catch (err) {
-    res.json({ error: "No lists found" });
   }
 });
 

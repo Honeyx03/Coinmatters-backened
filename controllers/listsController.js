@@ -4,64 +4,97 @@ const { getUser } = require("../queries/users.js");
 const lists = express.Router({ mergeParams: true });
 const {
   getAllLists,
+  getUserLists,
   getList,
   newList,
+  newUserList,
   deleteList,
   updateList,
 } = require("../queries/lists.js");
-// const productsController = require("./productsListController.js");
-// lists.use("/:listId/products", productsController);
 
-// INDEX
+const productsController = require("./productsListController.js");
+lists.use("/:listId/products", productsController);
+
+
+//SHOW (Get) all list for all users
 lists.get("/", async (req, res) => {
-  const { userId } = req.params;
   try {
-    const allLists = await getAllLists(userId);
+    const allLists = await getAllLists();
     res.json(allLists);
   } catch (err) {
     res.json({ error: "No lists found" });
   }
 });
-
-// SHOW
-lists.get("/:id", async (req, res) => {
-  const { id } = req.params;
-  const list = await getList(id);
-  if (list) {
-    res.json(list);
-  } else {
-    res.status(404).json({ error: "not found" });
-  }
-});
-
-// CREATE
-lists.post("/", async (req, res) => {
+//POST all user lists to the /lists table
+lists.post("/:user_id", async (req, res) => {
+  const { user_id } = req.params;
+  console .log("User ID received in /lists route:", user_id);
+  const newListData = {
+    user_id,
+    list_name: req.body.list_name,
+    products: req.body.products,
+    note: req.body.note,
+  };
   try {
-    const list = await newList(req.body);
-    res.status(200).json(list);
+    const createdList = await newList(newListData);
+    res.status(200).json(createdList);
   } catch (error) {
-    res.status(400).json({ error: error });
+    res.status(400).json({ error });
   }
 });
 
-// UPDATE
-lists.put("/:id", async (req, res) => {
-  const { id } = req.params;
-  const updatedList = await updateList(id, req.body);
-  if (updatedList.id) {
+// SHOW a list for a specific user
+lists.get("/user/:user_id", async (req, res) => {
+  const { user_id } = req.params;
+  try {
+    const user = await getUser(user_id);
+    const userLists = await getUserLists(user_id);
+    res.json({ user, lists: userLists });
+  } catch (err) {
+    res.json({ error: "No lists found" });
+  }
+});
+
+//CREATE a list for a specific user
+lists.post("/user/:user_id", async (req, res) => {
+  const { user_id } = req.params;
+  const newListData = {
+    user_id,
+    list_name: req.body.list_name,
+    products: req.body.products,
+    note: req.body.note,
+  };
+  try {
+    const newList = await newUserList(newListData);
+    res.status(200).json(newList);
+  } catch (error) {
+    res.status(400).json({ error });
+  }
+});
+
+// UPDATE a list for a specific user
+lists.put("/user/:user_id/:id", async (req, res) => {
+  const { user_id, id } = req.params;
+  const updatedListData = {
+    list_name: req.body.list_name,
+    products: req.body.products,
+    note: req.body.note,
+  };
+  try {
+    const updatedList = await updateList(id, updatedListData);
     res.status(200).json(updatedList);
-  } else {
-    res.status(404).json("List not found");
+  } catch (error) {
+    res.status(404).json({ error: "List not found" });
   }
 });
 
-// DELETE
-lists.delete("/:id", async (req, res) => {
-  const { id } = req.params;
-  const deletedList = await deleteList(id);
-  if (deletedList.id) {
+// DELETE a list for a specific user
+lists.delete("/user/:user_id/:id", async (req, res) => {
+  const { user_id, id } = req.params;
+  try {
+    const deletedList = await deleteList(id);
     res.status(200).json(deletedList);
-  } else {
+  } catch (error) {
     res.status(404).json({ error: "List not found" });
   }
 });

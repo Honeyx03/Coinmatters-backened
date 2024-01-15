@@ -17,9 +17,11 @@ DROP TABLE IF EXISTS lists;
 
 CREATE TABLE lists (
  list_id SERIAL PRIMARY KEY,
- list_name TEXT,
  user_id INTEGER REFERENCES users(user_id)
- ON DELETE CASCADE
+ ON DELETE CASCADE,
+ list_name TEXT NOT NULL,
+ products TEXT[],
+ note TEXT
 );
 
 DROP TABLE IF EXISTS retailers;
@@ -53,6 +55,17 @@ CREATE TABLE products_list (
   FOREIGN KEY (list_id) REFERENCES lists(list_id)
   ON DELETE CASCADE
 );
+
+-- DROP TABLE IF EXISTS user_list;
+
+-- CREATE TABLE user_list (
+--   id SERIAL PRIMARY KEY,
+--   user_id INTEGER REFERENCES users(user_id)
+--   ON DELETE CASCADE,
+--   list_name TEXT NOT NULL,
+--   products TEXT[],
+--   note TEXT
+-- );
 
 -- DROP TABLE IF EXISTS prices;
 

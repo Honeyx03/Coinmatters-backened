@@ -9,12 +9,10 @@ INSERT INTO users (username, email, password, created_at) VALUES
 ('John Goodman', 'JohnG@example.com', 'JohnRocks123!', CURRENT_TIMESTAMP),
 ('Ahmad Hamoudeh', 'AhmadH@example.com', 'AhmadRocks123!', CURRENT_TIMESTAMP);
 
-INSERT INTO lists (list_name, user_id, list_id) VALUES 
-('groceries', 2, 1),
-('Birthday party', 2, 2),
-('Nonis list', 4, 3),
-('Dennys list', 5, 4),
-('fruit', 5, 5);
+INSERT INTO lists (user_id, list_name, products, note) VALUES
+(4, 'Grocery List', ARRAY['Product1', 'Product2', 'Product3'], 'every day groceries'),
+(2, 'Party List', ARRAY['Product1', 'Product2', 'Product3'], 'party items');
+
 
 INSERT INTO retailers (retailer_id, retailer_name, zipcodes_array, website) VALUES
 (1,'CTown', ARRAY[10456, 10462, 11101, 10029],'https://www.ctownsupermarkets.com/'),
@@ -80,13 +78,15 @@ INSERT INTO products (product_id, product_name, size, price, retailer_id, thumbn
 (58,'Perdue Breaded Chicken Breast Cutlets', '12 Ounces', 4.46, 3, 'https://i5.walmartimages.com/seo/Perdue-No-Antibiotics-Ever-Refrigerated-Breaded-Chicken-Breast-Cutlets-12-oz-Tray_358a6e27-7077-4579-b466-beea2f774cfc.fd4d313bd3a699eda2bbbc47a2818666.jpeg?odnHeight=117&odnWidth=117&odnBg=FFFFFF'),
 (59,'Oscar Mayer Chicken Breast, Rotisserie Seasoned', '9 Ounces', 4.48, 3, 'https://db535g4onu9gg.cloudfront.net/eyJidWNrZXQiOiJtZXJjYXRvLWltYWdlcyIsImVkaXRzIjp7InJlc2l6ZSI6eyJmaXQiOiJpbnNpZGUiLCJ3aWR0aCI6MjgwLCJoZWlnaHQiOjE4N319LCJrZXkiOiJwcm9kdWN0-LW');
 
-INSERT INTO products_list (product_id, list_id, quantity) VALUES
-(1, 1, 2),
-(4, 1, 1),
-(10, 2, 1),
-(3, 3, 1),
-(2, 3, 1),
-(1, 4, 1);
+-- INSERT INTO products_list (product_id, list_id, quantity) VALUES
+-- (1, 1, 2),
+-- (4, 1, 1),
+-- (10, 2, 1),
+-- (3, 3, 1),
+-- (2, 3, 1),
+-- (1, 4, 1);
+
+
 
 --- Product in products thumbnail link is being truncated by psql,
 --- this goes for products (2, 3, 4, 5, 6)

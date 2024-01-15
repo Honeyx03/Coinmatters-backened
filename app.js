@@ -6,6 +6,7 @@ const express = require("express");
 const registerController = require("./controllers/registerController"); 
 const CookieParser = require("cookie-parser");
 
+
 // CONFIGURATION
 const app = express();
 
@@ -49,6 +50,13 @@ app.use("/products", productsController);
 // Retailer ROUTE
 const retailerController = require("./controllers/retailerController.js");
 app.use("/retailer", retailerController);
+
+//Lists ROUTES
+const listsRouter = require("./controllers/listsController.js");
+
+//Use the lists router for requests to '/lists'
+app.use("/lists", listsRouter);
+
 
 // 404 PAGE
 app.get("*", (req, res) => {

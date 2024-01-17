@@ -32,12 +32,13 @@ const getList = async (id) => {
 const newList = async (list) => {
   try {
     const newList = await db.one(
-      "INSERT INTO lists (user_id, list_name, products, note) VALUES($1, $2, $3, $4) RETURNING *",
+      "INSERT INTO lists (user_id, list_name, products, note, date_created) VALUES($1, $2, $3, $4, $5) RETURNING *",
       [
         list.user_id,
         list.list_name,
         list.products,
-        list.note
+        list.note,
+        list.date_created
       ]
     );
     return newList;
@@ -50,12 +51,13 @@ const newList = async (list) => {
 const newUserList = async (list) => {
   try {
     const userList = await db.one(
-      "INSERT INTO lists (user_id, list_name, products, note) VALUES($1, $2, $3, $4) RETURNING *",
+      "INSERT INTO lists (user_id, list_name, products, note, date_created) VALUES($1, $2, $3, $4, $5) RETURNING *",
       [
         list.user_id,
         list.list_name,
         list.products,
-        list.note
+        list.note,
+        list.date_created
       ]
     );
     return userList;

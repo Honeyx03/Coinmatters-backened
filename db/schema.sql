@@ -21,7 +21,8 @@ CREATE TABLE lists (
  ON DELETE CASCADE,
  list_name TEXT NOT NULL,
  products TEXT[],
- note TEXT
+ note VARCHAR(255),
+ date_created TEXT
 );
 
 DROP TABLE IF EXISTS retailers;

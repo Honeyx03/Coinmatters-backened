@@ -50,6 +50,7 @@ lists.post("/:user_id", async (req, res) => {
     list_name: req.body.list_name,
     products: req.body.products,
     note: req.body.note,
+    date_created: req.body.date_created,
   };
   try {
     const createdList = await newList(newListData);
@@ -67,6 +68,7 @@ lists.post("/user/:user_id", async (req, res) => {
     list_name: req.body.list_name,
     products: req.body.products,
     note: req.body.note,
+    date_created: req.body.date_created,
   };
   try {
     const newList = await newUserList(newListData);
@@ -83,6 +85,7 @@ lists.put("/user/:user_id/:id", async (req, res) => {
     list_name: req.body.list_name,
     products: req.body.products,
     note: req.body.note,
+    date_created: req.body.date_created,
   };
   try {
     const updatedList = await updateList(id, updatedListData);

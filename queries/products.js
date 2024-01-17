@@ -1,16 +1,8 @@
 const db = require("../db/dbConfig.js");
 
-const getAllProducts = async (id) => {
+const getAllProducts = async () => {
   try {
-  const allProducts = await db.any(
-  `
-    SELECT * 
-    FROM products_list
-    JOIN products
-    ON products_list.product_id = products.product_id
-    WHERE products_list.list_id=$1
-  `
-  ,id);
+  const allProducts = await db.any("SELECT * FROM products");
   return allProducts;
   } catch (err) {
   return err;
@@ -18,14 +10,7 @@ const getAllProducts = async (id) => {
 
 const getProduct = async (id) => {
   try {
-    const oneProduct = await db.one(
-    `
-    SELECT *
-    FROM products_list
-    JOIN products ON products_list.product_id = products.product_id
-    WHERE products_list.list_id = $2
-    `
-    , id);
+    const oneProduct = await db.one("SELECT * FROM products WHERE id=$1", id);
     return oneProduct;
   } catch (error) {
     return error;
@@ -35,16 +20,9 @@ const getProduct = async (id) => {
 const newProduct = async (product) => {
   try {
     const newProduct = await db.one(
-      "INSERT INTO products (title, source, price, thumbnail, product_href, product_id) VALUES($1, $2, $3, $4, $5, $6) RETURNING *",
-      [
-        product.title,
-        product.source,
-        product.price,
-        product.thumbnail,
-        product.product_href,
-        product.user_id,
-      ]
-    );
+        "INSERT INTO products (product_name, size, price, retailer_id, thumbnail) VALUES($1, $2, $3, $4, $5) RETURNING *",
+        [product.product_name, product.size, product.price, product.retailer_id, product.thumbnail]
+      );
     return newProduct;
   } catch (error) {
     return error;
@@ -54,7 +32,7 @@ const newProduct = async (product) => {
 const deleteProduct = async (id) => {
   try {
     const deletedProduct = await db.one(
-      "DELETE FROM products_list WHERE id=$1 RETURNING *",
+      "DELETE FROM products WHERE id=$1 RETURNING *",
       id
     );
     return deletedProduct;
@@ -66,16 +44,8 @@ const deleteProduct = async (id) => {
 const updateProduct = async (id, product) => {
   try {
     const updatedProduct = await db.one(
-      "UPDATE products_list SET title=$1, source=$2, price=$3, thumbnail=$4, product_href=$5, user_id=$6 where id=$7 RETURNING *",
-      [
-        product.title,
-        product.source,
-        product.price,
-        product.thumbnail,
-        product.product_href,
-        product.user_id,
-        id,
-      ]
+      "UPDATE products SET product_name=$1, size=$2, price=$3, retailer_id=$4, thumbnail=$5 WHERE id=$7 RETURNING *",
+      [product.product_name, product.size, product.price, product.retailer_id, product.thumbnail]
     );
     return updatedProduct;
   } catch (error) {
@@ -89,5 +59,3 @@ module.exports = {
   deleteProduct,
   updateProduct,
 };
-
-

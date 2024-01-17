@@ -15,6 +15,7 @@ const {
 const productsController = require("./productsListController.js");
 lists.use("/:listId/products", productsController);
 
+
 //SHOW (Get) all list for all users
 lists.get("/", async (req, res) => {
   try {

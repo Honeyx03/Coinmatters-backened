@@ -9,9 +9,9 @@ INSERT INTO users (username, email, password, created_at) VALUES
 ('John Goodman', 'JohnG@example.com', 'JohnRocks123!', CURRENT_TIMESTAMP),
 ('Ahmad Hamoudeh', 'AhmadH@example.com', 'AhmadRocks123!', CURRENT_TIMESTAMP);
 
-INSERT INTO lists (user_id, list_name, products, note) VALUES
-(4, 'Grocery List', ARRAY['Product1', 'Product2', 'Product3'], 'every day groceries'),
-(2, 'Party List', ARRAY['Product1', 'Product2', 'Product3'], 'party items');
+INSERT INTO lists (user_id, list_name, products, note, date_created) VALUES
+(4, 'Grocery List', ARRAY['Product1', 'Product2', 'Product3'], 'every day groceries', '2024-01-16T15:05:41.139Z'),
+(2, 'Party List', ARRAY['Product1', 'Product2', 'Product3'], 'party items', '2024-01-16T15:05:41.139Z');
 
 
 INSERT INTO retailers (retailer_id, retailer_name, zipcodes_array, website) VALUES

@@ -42,7 +42,7 @@ class UserController {
 
       const token = generateAuthToken(user);
       res.cookie("dataToken", token, { maxAge: 900000, httpOnly: true, sameSite: 'None',
-      secure: true,});
+      secure: true});
       console.log("Login Successful")
       res.status(200).json("Cookie Set");
     } catch (error) {
@@ -71,8 +71,8 @@ class UserController {
 
   async logOut(req,res){
     // Clear the 'dataToken' cookie on the client-side
-    res.clearCookie('dataToken');
-  
+    res.clearCookie('dataToken', { sameSite: 'None', secure: true, httpOnly: true });
+
     // Send a response indicating successful logout
     return res.status(200).json({ message: 'Logout successful' });
 

@@ -41,7 +41,8 @@ class UserController {
       }
 
       const token = generateAuthToken(user);
-      res.cookie("dataToken", token, { maxAge: 900000, httpOnly: true });
+      res.cookie("dataToken", token, { maxAge: 900000, httpOnly: true, sameSite: 'None',
+      secure: true,});
       console.log("Login Successful")
       res.status(200).json("Cookie Set");
     } catch (error) {

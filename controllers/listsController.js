@@ -30,10 +30,10 @@ lists.get("/", async (req, res) => {
 lists.get("/user/:user_id", async (req, res) => {
   const { user_id } = req.params;
   try {
-    console.log('Fetching user and lists for user_id:', user_id);
+    // console.log('Fetching user and lists for user_id:', user_id);
     const user = await getUser(user_id);
     const userLists = await getUserLists(user_id);
-    console.log('Fetched user and lists:', { user, lists: userLists });
+    // console.log('Fetched user and lists:', { user, lists: userLists });
     res.json({ user, lists: userLists });
   } catch (err) {
     console.error('Error fetching user and lists:', err);
